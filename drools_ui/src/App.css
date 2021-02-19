@@ -7,6 +7,8 @@
   pointer-events: none;
 }
 
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -35,4 +37,31 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* Setting for floatingbutton.js*/
+.AddButtonStyle{
+    position: fixed !important;  
+    bottom: 50px !important;
+    right: 25px !important;
+}
+
+.popupHeader{
+  background-color: #3f51b5;
+  color: white;
+}
+
+.labelClass{
+  font-size: 14px !important;
+    margin-left: 10px;
+}
+.MuiSelect-select{
+ width: 15vh !important ;
+}
+
+.MuiDialog-paperWidthSm {
+  width: 75% !important;
+  height: auto !important;
+  min-width: 75% !important;
 }

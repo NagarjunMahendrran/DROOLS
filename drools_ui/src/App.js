@@ -1,23 +1,16 @@
-import logo from './logo.svg';
+import Container from '@material-ui/core/Container';
+import FloatingActionButtons from './Components/floatingbutton'
+import AddNewRuleComponent from './Components/popup'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container style={{ width: '80%', height:'75%'}}>
+        <p></p>
+      </Container>
+      <AddNewRuleComponent/>
+      <FloatingActionButtons />
     </div>
   );
 }

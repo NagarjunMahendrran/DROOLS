@@ -18,9 +18,6 @@ import { ADDROW } from '../Actions/Actions';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 
-import store from '../Store/store';
-
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -46,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
   },
   helper: {
     borderLeft: `2px solid ${theme.palette.divider}`,
@@ -66,6 +62,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const operator = [{
+  value: '&&',
+  label: 'AND'
+}, {
+  value: '||',
+  label: 'OR'
+}];
 const datatypeoptions = [{
     value: "getAsInt",
     label: 'Number'
@@ -125,13 +128,13 @@ export default function TableCreation() {
         <AccordionDetails>
         <div className={classes.root}>
           {FormRow(row,classes,index)}
-          <Divider/>
+          <Divider style={{marginTop:"10px"}}/>
           {CreateResult(row,index)}
         </div>
         </AccordionDetails>
         <Divider />
         <AccordionActions>
-        <Fab size="small" onClick={(store.getState().tables[index].row == 0) ?(() => dispatch(ADDROW({id:index}))):(() => showPopup(index))} color="primary"  variant="extended">
+        <Fab size="small" onClick={() => dispatch(ADDROW({id:index}))} color="primary"  variant="extended">
                 <AddIcon  aria-label="AddConditonn" style={{float:"right"}} ></AddIcon>Add Condition
             </Fab>
             <Fab size="small" color="secondary"  variant="extended">
@@ -144,10 +147,6 @@ export default function TableCreation() {
   );
 }
 
-function showPopup(data) {
-    console.log("arjun");
-    
-}
 function CreateResult(data,index) {
     if(data.row>0){
         return(
@@ -181,10 +180,29 @@ function CreateResult(data,index) {
 function FormRow(data,classes,index) {
     const rowData = [];
     for (let i = 0; i < data.row; i++) {
+      let operatore =[];
+      if (i >= 0 && i < data.row && data.row > 1 &&  i != (data.row -1)){
+        operatore.push(
+        <Grid item xs={2}>
+        <FormControl className={classes.FormControl}> 
+        <InputLabel style={{fontSize:"10px",marginLeft:"5px"}} >Operator</InputLabel>
+        <Select variant="outlined" 
+        onChange={(event) => localStorage.setItem(index+"_operator_"+(i) ,event.target.value)}>
+        {operator.map(val => (
+            <MenuItem key={val.value} value={val.value}>
+            {val.label}
+            </MenuItem>
+        ))}
+        </Select></FormControl>
+        </Grid>)
+        }else{
+          operatore = [];
+        }
+
     rowData.push (
-          <Grid style={{marginBottom:"20px"}} spacing={1} container 
-          alignItems="center" >
-        <Grid item xs={3}>
+          <Grid spacing={8} container 
+          alignItems="center">
+        <Grid item xs={2}>
         <FormControl className={classes.FormControl}>
         <InputLabel className="labelClass" >DataType</InputLabel>
         <Select variant="outlined" autoComplete="Select"
@@ -198,7 +216,7 @@ function FormRow(data,classes,index) {
         </Select>
         </FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <FormControl className={classes.FormControl}>
         <InputLabel  className="labelClass"  >ColumnName</InputLabel>
         <Select variant="outlined"
@@ -212,7 +230,7 @@ function FormRow(data,classes,index) {
         </Select>
         </FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
         <FormControl className={classes.FormControl}>
         <InputLabel   className="labelClass"  >ConditionType</InputLabel>
         <Select variant="outlined"
@@ -229,8 +247,8 @@ function FormRow(data,classes,index) {
             <TextField  variant="outlined"  placeholder="Enter Value" onKeyUp= {(event) => localStorage.setItem(index+"_value_"+i ,event.target.value)}>
             </TextField>
         </Grid>
-        </Grid>
-    )
+        {operatore}
+         </Grid>)
     }
     return rowData;
   }

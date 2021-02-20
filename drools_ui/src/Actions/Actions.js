@@ -26,15 +26,27 @@ export const ADDROW = data => ({
     type: keys.TOOGLE_POPUP,
   }};
 
+  export function TOOGLECARDPOPUP(){
+    return{
+    type: keys.CARD_POPUP,
+  }};
 
 export  function ADDTABLE() {
   document.getElementById("RuleName").value = " ";
+  let name = localStorage.getItem("RuleName");
+  localStorage.removeItem("RuleName");
+  if(name){
   return{
     type: keys.CREATE_TABLE,
     payload: {
-      name:localStorage.getItem("RuleName"),
+      name:name,
       row:0
       }
   }
+}else{
+  return{
+    type: keys.SHOW_EMPTY_ERROR
+  }
+}
 } 
 

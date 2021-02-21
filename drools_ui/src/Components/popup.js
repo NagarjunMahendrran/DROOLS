@@ -14,6 +14,8 @@ import Fab from '@material-ui/core/Fab';
 import TableCreation from './AccodiansComponent';
 import Cardpopup from '../Components/cardpopup'
 import FormHelperText from '@material-ui/core/FormHelperText';
+import download from './FileCreator';
+import store from '../Store/store';
 
 
 const error = false;
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AddNewRuleComponent() {
 const open = useSelector(state => state.popup_state);
 const error = useSelector(state => state.SHOW_EMPTY_ERROR);
+const enable = useSelector(state => state.allowCreate);
 const dispatch =  useDispatch();
   return (
     <div>
@@ -57,7 +60,7 @@ const dispatch =  useDispatch();
           <Button onClick={() => dispatch(TOOGLEPOPUP())}  variant="contained" autoFocus color="secondary">
             CANCEL
           </Button>
-          <Button  onClick={() => dispatch(TOOGLECARDPOPUP())}  variant="contained" color="primary" autoFocus>
+          <Button  disabled={!enable} onClick={(event) => (download())? dispatch(TOOGLECARDPOPUP()):""}  variant="contained" color="primary" autoFocus>
             CREATE
           </Button>
         </DialogActions>

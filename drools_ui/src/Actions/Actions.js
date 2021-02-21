@@ -1,15 +1,17 @@
 import * as keys from "./ActionKeys"
 import store from "../Store/store"
 
-let CardCount = 0;
+
 
 export const ADDCARD = data => ({
   type: keys.CREATE_CARD,
   payload: {
-    id: CardCount++,
-    name:data.name,
-    version:data.version,
-    Status:data.status
+    id: store.getState().cards.length++,
+    name:localStorage.getItem("FileName"),
+    version:localStorage.getItem("version"),
+    Status:localStorage.getItem("status"),
+    discription : localStorage.getItem("discription") ?  localStorage.getItem("discription") : "",
+    fileData :  localStorage.getItem("dataResult"),
   }
 });
 
@@ -19,12 +21,18 @@ export const ADDROW = data => ({
     value: store.getState().tables[data.id].row + 1
   });
 
-
   export function TOOGLEPOPUP(){
     localStorage.clear();
     return{
     type: keys.TOOGLE_POPUP,
   }};
+
+  export function SHOW_CARD_ERROR(){
+    return{
+    type: keys.SHOW_CARD_ERROR,
+  }};
+
+  
 
   export function TOOGLECARDPOPUP(){
     return{

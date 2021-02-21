@@ -59,6 +59,9 @@
 .MuiSelect-select{
  width: 15vh !important ;
 }
+#status.MuiSelect-select{
+  width: 385px !important ;
+ }
 
 .MuiDialog-paperWidthSm {
   width: 75% !important;

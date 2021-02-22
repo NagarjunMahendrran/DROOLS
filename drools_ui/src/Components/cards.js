@@ -28,7 +28,6 @@ function CardCreator() {
 function CREATECARD(card) {
     if(card != null){
     return(
-        
         <Grid  item spacing={2} style={{marginTop:10}} xs={6} md={4} lg={4} >
             <Card >
       <CardActionArea>

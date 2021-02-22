@@ -32,6 +32,11 @@ export const ADDROW = data => ({
     type: keys.SHOW_CARD_ERROR,
   }};
 
+  export function SHOW_TABLE_ERROR(){
+    return{
+    type: keys.SHOW_TABLE_ERROR,
+  }};
+
   
 
   export function TOOGLECARDPOPUP(){

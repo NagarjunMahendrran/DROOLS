@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,12 +7,18 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import DescriptionIcon from '@material-ui/icons/Description';
 import { makeStyles } from '@material-ui/core/styles';
-import { ADDCARD, ADDTABLE, TOOGLEPOPUP} from "../Actions/Actions"
+import {  ADDTABLE, TOOGLECARDPOPUP, TOOGLEPOPUP, SHOW_TABLE_ERROR} from "../Actions/Actions"
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import TableCreation from './AccodiansComponent';
+import Cardpopup from '../Components/cardpopup'
+import FormHelperText from '@material-ui/core/FormHelperText';
+import download from './FileCreator';
+import Alert from '@material-ui/lab/Alert';
 
+
+const error = false;
 const useStyles = makeStyles((theme) => ({
     root: {
       '& > *': {
@@ -27,11 +33,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AddNewRuleComponent() {
 const open = useSelector(state => state.popup_state);
+const error = useSelector(state => state.SHOW_EMPTY_ERROR);
+const table_error = useSelector(state => state.SHOW_TABLE_ERROR);
+
+const enable = useSelector(state => state.allowCreate);
 const dispatch =  useDispatch();
   return (
     <div>
+      <Cardpopup/>
       <Dialog className="popupStyle" open={open}>
-
         <DialogTitle className="popupHeader" id="AddNewRule"><DescriptionIcon fontSize="small"/>{"CREATE NEW DRL FILE"}</DialogTitle>
         <DialogContent>
         <div style={{display:"flex", marginTop:"10px"}}>
@@ -39,10 +49,15 @@ const dispatch =  useDispatch();
           id="RuleName"
           label="Enter Rule Name"
           variant="outlined"
+          helperText = {error ? <FormHelperText error>Please Enter Rule Name!</FormHelperText> : ""}
           onKeyUp={(event) => localStorage.setItem("RuleName",event.target.value)}
         />
         <Fab onClick={(() => dispatch(ADDTABLE()))} color="primary" style={{marginLeft:"5px"}} variant="round">
             <AddIcon  /></Fab>
+
+        </div>
+        <div style={{marginTop:"10px"}} hidden={!table_error} >
+            <Alert severity="error"  onClose={() => {}}>All fields are required!</Alert>
         </div>
         <TableCreation/>
         </DialogContent>
@@ -50,7 +65,7 @@ const dispatch =  useDispatch();
           <Button onClick={() => dispatch(TOOGLEPOPUP())}  variant="contained" autoFocus color="secondary">
             CANCEL
           </Button>
-          <Button  variant="contained" color="primary" autoFocus>
+          <Button  disabled={!enable} onClick={(event) => (download())? dispatch(TOOGLECARDPOPUP()): dispatch(SHOW_TABLE_ERROR())}  variant="contained" color="primary" autoFocus>
             CREATE
           </Button>
         </DialogActions>

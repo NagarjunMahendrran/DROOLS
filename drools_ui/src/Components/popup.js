@@ -48,14 +48,12 @@ const dispatch =  useDispatch();
       <Cardpopup/>
       <Dialog className="popupStyle" open={open}>
         <DialogTitle className="popupHeader" id="AddNewRule"><DescriptionIcon fontSize="small"/>{"CREATE NEW DRL FILE"}
-        
         </DialogTitle>
-
         <DialogContent>
         <div style={{display:"flex", marginTop:"10px"}}>
         <FormControl  style={{float:"right",width:'200px'}}> 
         <InputLabel style={{fontSize:"14px",marginLeft:"5px",width:"150px"}} >SELECT DATABASE</InputLabel>
-        <Select   style={{borderColor:'white',}} id="dbname" variant="outlined"
+        <Select   autoFocus style={{borderColor:'white',}} id="dbname" variant="outlined"
         onChange={(event) => fetchSomeData(event.target.value,dispatch)}>
         {dbname.map(val => (
             <MenuItem key={val.value} value={val.value}>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import * as keys from "../Actions/ActionKeys"
 import { UPDATETABLE} from "../Actions/Actions";
 import store from "../Store/store"
 
@@ -15,7 +15,7 @@ let tableDefaultPost = {
   };  
 
 export function GETDBNAMES () {
-axios.post("http://13.71.3.63:8084/api/list_schema", {})
+axios.post(keys.apiUrl+"list_schema", {})
 .then(res => {
 
     let names =res.data.Result;
@@ -33,7 +33,7 @@ export function GETDBTABLES(metaDataID) {
     let tableName = {};
     let columname = [];
 tableDefaultPost.filter.value = metaDataID;
-    axios.post("http://13.71.3.63:8084/api/list_entity", tableDefaultPost)
+    axios.post(keys.apiUrl+"list_entity", tableDefaultPost)
     .then(res => {
         let result = res.data.Result;
         result.map(table => {

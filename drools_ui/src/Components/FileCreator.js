@@ -1,11 +1,8 @@
-import { useDispatch } from "react-redux";
 import store from "../Store/store"
 
 
 let status = true;
-var result= []
  export default function download() {
-    const  dispatch = useDispatch;
     status = true;
      localStorage.setItem("dataResult",createarray());
       return status;
@@ -33,7 +30,8 @@ function createarray() {
     var set_value = localStorage.getItem("value_"+ tab);
 
     for (let cond = 0; cond < table[tab].row; cond++) {
-      var type = localStorage.getItem(tab + "_dataType_" + cond);
+      var type = store.getState().SelectedDbTables[store.getState().tables[tab].selectedtable[cond]][cond].properties.datatype;
+      type = type != undefined ? type :"String";
       var condition_line = localStorage.getItem(tab+ "_condition_" + cond);
       var value = localStorage.getItem(tab+ "_value_" + cond);
       var column = localStorage.getItem(tab + "_column_" + cond);
@@ -119,7 +117,7 @@ function createColumn(data, condition) {
 
 function createDataType(data, condition, tab) {
   switch (data) {
-    case "getAsInt":
+    case "number":
       return condition === "notequal" ? "(!b.getAsInt(\"" : "(b.getAsInt(\"";
 
     case "getAsFloat":
@@ -128,7 +126,9 @@ function createDataType(data, condition, tab) {
     case "getAsBoolean":
       return condition === "notequal" ? "(!b.getAsBoolean(\"" : "(b.getAsBoolean(\"";
 
-    case "getAsString":
+    case "String":
+      return condition === "notequal" ? "(!b.get(\"" : "(b.get(\"";
+      case "string":
       return condition === "notequal" ? "(!b.get(\"" : "(b.get(\"";
 
     default:

@@ -8,7 +8,7 @@ export const SHOW_CARD_ERROR ="show_card_error";
 export const SHOW_TABLE_ERROR = "show_table_error";
 export const SETDBNAME = "showdbNames"
 export const UPDATETABLE ="update_table_names"
-const apiUrl = "http://13.71.3.63:8084/api/";
+export const apiUrl = "http://13.71.3.63:8084/api/";
 export const SELECTEDCOLUMNS= "selected_columns"
 
 export const initialState = {

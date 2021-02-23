@@ -70,32 +70,8 @@ const operator = [{
   value: '||',
   label: 'OR'
 }];
-const datatypeoptions = [{
-    value: "getAsInt",
-    label: 'Number'
-  }, {
-    value: 'getAsFloat',
-    label: 'Decimel'
-  }, {
-    value: 'getAsBoolean',
-    label: 'True/False'
-  }, {
-    value: 'getAsString',
-    label: 'Text'
-  }];
-  const columnOptions = [{
-    value: "Name",
-    label: 'Name'
-  }, {
-    value: 'Age',
-    label: 'Age'
-  }, {
-    value: 'City',
-    label: 'City'
-  }, {
-    value: 'Password',
-    label: 'Password'
-  }];
+
+  
   const conditionOptions = [{
     value: "greater",
     label: 'GreaterThan'
@@ -187,7 +163,7 @@ function FormRow(data,classes,index,tableNames,dispatch) {
       let operatore =[];
       if (i >= 0 && i < data.row && data.row > 1 &&  i != (data.row -1)){
         operatore.push(
-        <Grid item xs={1}>
+        <Grid item xs={2.4}>
         <FormControl className={classes.FormControl}> 
         <InputLabel style={{fontSize:"10px",marginLeft:"5px"}} >Operator</InputLabel>
         <Select variant="outlined" 
@@ -206,7 +182,7 @@ function FormRow(data,classes,index,tableNames,dispatch) {
     rowData.push (
           <Grid spacing={3} container 
           alignItems="center">
-             <Grid item xs={2}>
+             <Grid item xs={2.4}>
         <FormControl className={classes.FormControl}>
         <InputLabel className="labelClass" >TableName</InputLabel>
         <Select variant="outlined" autoComplete="Select"
@@ -220,21 +196,7 @@ function FormRow(data,classes,index,tableNames,dispatch) {
         </Select>
         </FormControl>
         </Grid>
-        <Grid item xs={2}>
-        <FormControl className={classes.FormControl}>
-        <InputLabel className="labelClass" >DataType</InputLabel>
-        <Select variant="outlined" autoComplete="Select"
-        onChange={(event) => localStorage.setItem(index+"_dataType_"+i ,event.target.value)}
-        >
-        {datatypeoptions.map(val => (
-            <MenuItem key={val.value} value={val.value}>
-            {val.label}
-            </MenuItem>
-        ))}
-        </Select>
-        </FormControl>
-        </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2.4}>
         <FormControl className={classes.FormControl}>
         <InputLabel  className="labelClass"  >ColumnName</InputLabel>
         <Select variant="outlined"
@@ -244,7 +206,7 @@ function FormRow(data,classes,index,tableNames,dispatch) {
         </Select>
         </FormControl>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={2.4}>
         <FormControl className={classes.FormControl}>
         <InputLabel   className="labelClass"  >ConditionType</InputLabel>
         <Select variant="outlined"
@@ -257,7 +219,7 @@ function FormRow(data,classes,index,tableNames,dispatch) {
         ))}
         </Select></FormControl>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
             <TextField  variant="outlined"  placeholder="Enter Value" onKeyUp= {(event) => localStorage.setItem(index+"_value_"+i ,event.target.value)}>
             </TextField>
         </Grid>

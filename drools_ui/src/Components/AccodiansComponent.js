@@ -14,9 +14,10 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
-import { ADDROW } from '../Actions/Actions';
+import {ADDSELECTEDCOLUMNS, ADDROW } from '../Actions/Actions';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import store from '../Store/store';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -113,6 +114,7 @@ const datatypeoptions = [{
 export default function TableCreation() {
   const classes = useStyles();
   const table = useSelector(state => state.tables);
+  const tableNames = useSelector(state => state.SelectedDbTables);
   const dispatch = useDispatch();
   return (
     <div  style={{marginTop:"10px"}} className={classes.root}>
@@ -127,7 +129,7 @@ export default function TableCreation() {
         <Divider />
         <AccordionDetails>
         <div className={classes.root}>
-          {FormRow(row,classes,index)}
+          {FormRow(row,classes,index,tableNames,dispatch)}
           <Divider style={{marginTop:"10px"}}/>
           {CreateResult(row,index)}
         </div>
@@ -177,13 +179,15 @@ function CreateResult(data,index) {
 
 
 
-function FormRow(data,classes,index) {
+function FormRow(data,classes,index,tableNames,dispatch) {
     const rowData = [];
+    const tables = Object.keys(tableNames);
     for (let i = 0; i < data.row; i++) {
+      const columnNames = store.getState().tables[0].selectedtable[i];
       let operatore =[];
       if (i >= 0 && i < data.row && data.row > 1 &&  i != (data.row -1)){
         operatore.push(
-        <Grid item xs={2}>
+        <Grid item xs={1}>
         <FormControl className={classes.FormControl}> 
         <InputLabel style={{fontSize:"10px",marginLeft:"5px"}} >Operator</InputLabel>
         <Select variant="outlined" 
@@ -200,13 +204,27 @@ function FormRow(data,classes,index) {
         }
 
     rowData.push (
-          <Grid spacing={8} container 
+          <Grid spacing={3} container 
           alignItems="center">
+             <Grid item xs={2}>
+        <FormControl className={classes.FormControl}>
+        <InputLabel className="labelClass" >TableName</InputLabel>
+        <Select variant="outlined" autoComplete="Select"
+        onChange={(event) => dispatch(ADDSELECTEDCOLUMNS({table:index,rowid:i ,tableName:event.target.value}))}
+        >
+        {tables.map(val => (
+            <MenuItem key={val} value={val}>
+            {val}
+            </MenuItem>
+        ))}
+        </Select>
+        </FormControl>
+        </Grid>
         <Grid item xs={2}>
         <FormControl className={classes.FormControl}>
         <InputLabel className="labelClass" >DataType</InputLabel>
         <Select variant="outlined" autoComplete="Select"
-        onChange={(event) => localStorage.setItem(index+"_datatype_"+i ,event.target.value)}
+        onChange={(event) => localStorage.setItem(index+"_dataType_"+i ,event.target.value)}
         >
         {datatypeoptions.map(val => (
             <MenuItem key={val.value} value={val.value}>
@@ -222,11 +240,7 @@ function FormRow(data,classes,index) {
         <Select variant="outlined"
         onChange={(event) => localStorage.setItem(index+"_column_"+i ,event.target.value)}
         >
-        {columnOptions.map(val => (
-            <MenuItem key={val.value} value={val.value}>
-            {val.label}
-            </MenuItem>
-        ))}
+         {createmenu(tableNames[columnNames])}
         </Select>
         </FormControl>
         </Grid>
@@ -243,7 +257,7 @@ function FormRow(data,classes,index) {
         ))}
         </Select></FormControl>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={2}>
             <TextField  variant="outlined"  placeholder="Enter Value" onKeyUp= {(event) => localStorage.setItem(index+"_value_"+i ,event.target.value)}>
             </TextField>
         </Grid>
@@ -252,3 +266,16 @@ function FormRow(data,classes,index) {
     }
     return rowData;
   }
+
+  function createmenu(data) {
+    if(data != undefined){
+      return(
+        data.map(val => (
+          <MenuItem key={val.name} value={val.name}>
+          {val.name}
+          </MenuItem>
+      )))}
+      else{
+        return null;
+      }
+      }

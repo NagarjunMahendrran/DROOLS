@@ -1,5 +1,6 @@
 import * as keys from "../Actions/ActionKeys";
 import update from 'react-addons-update'; 
+import { dbname } from "../App";
 
 
 export default function rootReducer(state = keys.initialState, action) {
@@ -9,16 +10,36 @@ export default function rootReducer(state = keys.initialState, action) {
     case keys.TOOGLE_POPUP:
       return { ...state,
         tables: [],
+        DBNAMES:dbname,
+        DBSELECTED : true,
+        SELECTEDDB :"",
         CARD_POPUP:false,
         SHOW_EMPTY_ERROR :false,
         SHOW_TABLE_ERROR : false,
         popup_state: !state.popup_state,
       };
+
+      case keys.UPDATETABLE:
+        return{
+          ...state,
+          SelectedDbTables:action.data
+
+        }
+        case keys.SELECTEDCOLUMNS:
+            return  update(state,{tables: {[action.tableid] :{selectedtable: {[action.payload.id]: {$set:[action.payload.name]}}}}})
+      
+
       case keys.CARD_POPUP:
         return { ...state,
           SHOW_EMPTY_ERROR :false,
           CARD_POPUP: true,
           SHOW_TABLE_ERROR : false,
+        };
+        case keys.SETDBNAME:
+        return { ...state,
+           DBSELECTED :false,
+           tables:[],
+           SELECTEDDB : action.value
         };
       case keys.SHOW_EMPTY_ERROR:
         return { ...state,

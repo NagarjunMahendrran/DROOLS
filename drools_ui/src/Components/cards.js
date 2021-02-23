@@ -9,7 +9,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { green } from '@material-ui/core/colors';
 import GetAppOutlinedIcon from '@material-ui/icons/GetAppOutlined';
@@ -17,9 +16,26 @@ import GetAppOutlinedIcon from '@material-ui/icons/GetAppOutlined';
 function CardCreator() {
     const cards = useSelector(state => state.cards);
   return (
-      <Grid  spacing={2} style={{marginTop:20}}  container>
+      <Grid spacing={1} style={{marginTop:20}}  container>
       {cards.map(card =>
             CREATECARD(card)
+
+      )}
+      {cards.map(card =>
+            CREATECARD(card)
+
+      )}
+      {cards.map(card =>
+            CREATECARD(card)
+
+      )}
+      {cards.map(card =>
+            CREATECARD(card)
+
+      )}
+      {cards.map(card =>
+            CREATECARD(card)
+
       )}
       </Grid>
   );
@@ -28,34 +44,34 @@ function CardCreator() {
 function CREATECARD(card) {
     if(card != null){
     return(
-        <Grid  item spacing={2} style={{marginTop:10}} xs={6} md={4} lg={4} >
+        <Grid id="cardCreater"  item spacing={2} style={{marginTop:10}} xs={12} md={6} lg={4} >
             <Card >
       <CardActionArea>
         <CardContent style={{display:"block"}}>
-          <Typography style={{float:"left"}}  variant="h4" component="h1">
+          <Typography style={{float:"left",fontWeight:"bold",fontSize:"15px"}}  variant="h6" component="h6">
             {card.name}
           </Typography>
           </CardContent>
           <br/>
           <CardContent>
-          <Typography style={{float:"left"}}  variant="h6" component="">
+          <Typography style={{float:"left",fontSize:"12px"}}  variant="h6" component="">
             Status:{card.Status}
           </Typography>
           </CardContent>
           <CardContent>
-          <Typography style={{float:"left"}}  variant="h6" component="">
+          <Typography style={{float:"left",fontSize:"12px"}}  variant="h6" component="">
             Verison:{card.version}
           </Typography>
           </CardContent>
       </CardActionArea>
       <CardActions style={{float:"right"}}>
-        <IconButton onClick={() => downloadFile(card)} component="span" size="medium" style={{ color: green[500] }}>
+        <IconButton onClick={() => downloadFile(card)} component="span" size="small" style={{ color: green[500] }}>
           <GetAppOutlinedIcon/>
         </IconButton>
-        <IconButton component="span" size="medium" color="primary">
+        <IconButton component="span" size="small" color="primary">
           <EditIcon/>
         </IconButton>
-        <IconButton component="span" size="medium" color="secondary">
+        <IconButton component="span" size="small" color="secondary">
           <DeleteOutlineRoundedIcon/>
         </IconButton>
       </CardActions>

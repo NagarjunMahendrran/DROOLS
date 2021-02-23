@@ -33,7 +33,7 @@ function createarray() {
     var set_value = localStorage.getItem("value_"+ tab);
 
     for (let cond = 0; cond < table[tab].row; cond++) {
-      var type = localStorage.getItem(tab + "_datatype_" + cond);
+      var type = localStorage.getItem(tab + "_dataType_" + cond);
       var condition_line = localStorage.getItem(tab+ "_condition_" + cond);
       var value = localStorage.getItem(tab+ "_value_" + cond);
       var column = localStorage.getItem(tab + "_column_" + cond);

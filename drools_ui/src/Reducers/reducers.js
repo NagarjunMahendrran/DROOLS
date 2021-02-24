@@ -14,6 +14,7 @@ export default function rootReducer(state = keys.initialState, action) {
         DBSELECTED : true,
         SELECTEDDB :"",
         CARD_POPUP:false,
+        SHOW_CARD_ERROR: false,
         SHOW_EMPTY_ERROR :false,
         SHOW_TABLE_ERROR : false,
         popup_state: !state.popup_state,

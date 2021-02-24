@@ -10,6 +10,7 @@ export const SETDBNAME = "showdbNames"
 export const UPDATETABLE ="update_table_names"
 export const apiUrl = "http://13.71.3.63:8084/api/";
 export const SELECTEDCOLUMNS= "selected_columns"
+export const CARD_ERROR = "Filename, Verison and Status fields are mandatory!"
 
 export const initialState = {
     cards: [],

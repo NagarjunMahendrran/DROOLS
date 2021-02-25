@@ -19,13 +19,7 @@ import * as keys from "../Actions/ActionKeys"
 const status = [{
     value: 'Created',
     label: 'Created'
-  }, {
-    value: 'OnHold',
-    label: 'onHold'
   },{
-  value: 'InReview',
-  label: 'InReview'
-}, {
   value: 'Published',
   label: 'Published'
 }];

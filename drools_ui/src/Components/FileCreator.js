@@ -28,10 +28,9 @@ function createarray() {
     var condition = "eval(";
     var set_message = localStorage.getItem("field_"+ tab);
     var set_value = localStorage.getItem("value_"+ tab);
-
     for (let cond = 0; cond < table[tab].row; cond++) {
       var type =   store.getState().SelectedDbTables.length >0 ? store.getState().SelectedDbTables[store.getState().tables[tab].selectedtable[cond]][cond].properties.datatype : null;
-      type = type != undefined ? type :"String";
+      type = type != null ? type :"String";
       var condition_line = localStorage.getItem(tab+ "_condition_" + cond);
       var value = localStorage.getItem(tab+ "_value_" + cond);
       var column = localStorage.getItem(tab + "_column_" + cond);

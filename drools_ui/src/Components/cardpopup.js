@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import { useDispatch } from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
 import { cardValidator } from "./CardValidator";
+import * as keys from "../Actions/ActionKeys"
 
 
 
@@ -18,13 +19,7 @@ import { cardValidator } from "./CardValidator";
 const status = [{
     value: 'Created',
     label: 'Created'
-  }, {
-    value: 'OnHold',
-    label: 'onHold'
   },{
-  value: 'InReview',
-  label: 'InReview'
-}, {
   value: 'Published',
   label: 'Published'
 }];
@@ -99,7 +94,7 @@ return(
 
                 </Grid>
                 <div hidden={!card_error} >
-                <Alert severity="error"  onClose={() => dispatch(SHOW_CARD_ERROR())}>Please Fill FileName, Verison and Status Atleast!</Alert>
+                <Alert severity="error"  onClose={() => dispatch(SHOW_CARD_ERROR())}>{keys.CARD_ERROR}</Alert>
                 </div>
             </DialogContent>
             <DialogActions>

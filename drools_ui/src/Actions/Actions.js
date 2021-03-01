@@ -3,6 +3,11 @@ import store from "../Store/store"
 
 
 
+export const UPDATETABLE = data =>({
+type:keys.UPDATETABLE,
+data
+})
+
 export const ADDCARD = data => ({
   type: keys.CREATE_CARD,
   payload: {
@@ -27,6 +32,8 @@ export const ADDROW = data => ({
     type: keys.TOOGLE_POPUP,
   }};
 
+
+
   export function SHOW_CARD_ERROR(){
     return{
     type: keys.SHOW_CARD_ERROR,
@@ -44,6 +51,25 @@ export const ADDROW = data => ({
     type: keys.CARD_POPUP,
   }};
 
+  export function setSelectedDb(data) {
+    localStorage.clear();
+    return{
+      type:keys.SETDBNAME,
+      value:data.value,
+      selectedDBTables:data.tableList
+    }
+  }
+
+  export function ADDSELECTEDCOLUMNS(data) {
+    return{
+    type:keys.SELECTEDCOLUMNS,
+    tableid:data.table,
+    payload:{
+      id:data.rowid,
+      name:data.tableName
+    }
+  }
+  }
 export  function ADDTABLE() {
   document.getElementById("RuleName").value = " ";
   let name = localStorage.getItem("RuleName");
@@ -53,7 +79,8 @@ export  function ADDTABLE() {
     type: keys.CREATE_TABLE,
     payload: {
       name:name,
-      row:0
+      row:0,
+      selectedtable:[]
       }
   }
 }else{

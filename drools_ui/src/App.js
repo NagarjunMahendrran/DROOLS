@@ -3,8 +3,9 @@ import FloatingActionButtons from './Components/floatingbutton'
 import AddNewRuleComponent from './Components/popup'
 import './App.css';
 import CardCreator from './Components/cards';
+import {GETDBNAMES} from "./API/Api"
 
-function App() {
+export default  function App() {
   return (
     <div className="App">
       <Container style={{ width: '80%', height:'550px' , marginTop:20}}>
@@ -16,5 +17,4 @@ function App() {
   );
 }
 localStorage.clear();
-
-export default App;
+export const dbname =GETDBNAMES();

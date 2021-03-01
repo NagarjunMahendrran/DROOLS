@@ -59,6 +59,16 @@
 .MuiSelect-select{
  width: 15vh !important ;
 }
+
+#cardCreater.MuiGrid-item:hover {
+  -ms-transform: scale(1.1); /* IE 9 */
+  -webkit-transform: scale(1.1); /* Safari 3-8 */
+  transform: scale(1.1);
+}
+
+#dbname.MuiSelect-select{
+  width: 25vh !important ;
+ }
 #status.MuiSelect-select{
   width: 385px !important ;
  }
